@@ -28,14 +28,14 @@
                 ><i class="fas fa-home mr-2"></i>Home</a
               >
               <a
-                href="#places"
-                class="flex items-center text-gray-700 hover:text-blue-600"
-                ><i class="fas fa-map-marker-alt mr-2"></i>Places</a
-              >
-              <a
                 href="#gallery"
                 class="flex items-center text-gray-700 hover:text-blue-600"
                 ><i class="fas fa-images mr-2"></i>Gallery</a
+              >
+              <a
+                href="#pokemon"
+                class="flex items-center text-gray-700 hover:text-blue-600"
+                ><i class="fas fa-map-marker-alt mr-2"></i>Places</a
               >
               <a
                 href="#contact"
@@ -109,23 +109,23 @@
           src="https://videos.pexels.com/video-files/3135808/3135808-hd_1920_1080_24fps.mp4"
           type="video/mp4"
         />
-        <!-- <track
+        <track
           src="assets/subtitles.vtt"
           kind="subtitles"
           srclang="en"
           label="English"
-        /> -->
+        />
         Your browser does not support the video tag.
       </video>
     </section>
 
     <!-- Dynamic Places Gallery -->
-    <section id="places" class="max-w-7xl mx-auto my-12 px-4">
+    <section id="pokemon" class="max-w-7xl mx-auto my-12 px-4">
       <h2 class="text-2xl font-bold mb-6 flex items-center">
-        <i class="fas fa-map-marked-alt mr-2 text-blue-600"></i>Popular Places
+        <i class="fas fa-map-marked-alt mr-2 text-blue-600"></i>Travel Guide
       </h2>
       <div
-        id="places-gallery"
+        id="pokemon-gallery"
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
       ></div>
     </section>
@@ -142,6 +142,61 @@
         />
         Your browser does not support the audio element.
       </audio>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="max-w-2xl mx-auto my-12 px-4">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i class="fas fa-envelope mr-2 text-blue-600"></i>Contact Us
+      </h2>
+      <form class="bg-white rounded-lg shadow p-8 flex flex-col space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-1"
+            >Name</label
+          >
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label
+            for="email"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Email</label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label
+            for="message"
+            class="block text-sm font-medium text-gray-700 mb-1"
+            >Message</label
+          >
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition"
+        >
+          Send Message
+        </button>
+      </form>
     </section>
 
     <!-- Footer with SVG Graphic -->
@@ -185,67 +240,42 @@
       menuBtn.addEventListener("click", () => {
         mobileMenu.classList.toggle("hidden");
       });
-      // Fetch places data from Unsplash API and display in gallery
+      // Fetch Pokémon data from PokéAPI and display in gallery
       async function fetchPlaces() {
-        const gallery = document.getElementById("places-gallery");
-        // Unsplash API for demo (no key required for random images)
-        const url =
-          "https://api.unsplash.com/search/photos?query=travel&per_page=6&client_id=1a1c1b1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e";
+        const gallery = document.getElementById("pokemon-gallery");
+        gallery.innerHTML = "<p class='text-gray-500'>Loading Pokémon...</p>";
         try {
-          const res = await fetch(url);
+          const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=6");
           const data = await res.json();
+          const promises = data.results.map(async (pokemon) => {
+            const pokeRes = await fetch(pokemon.url);
+            const pokeData = await pokeRes.json();
+            return {
+              name: pokemon.name,
+              image:
+                pokeData.sprites.other["official-artwork"].front_default ||
+                pokeData.sprites.front_default,
+            };
+          });
+          const pokemons = await Promise.all(promises);
           gallery.innerHTML = "";
-          data.results.forEach((place) => {
+          pokemons.forEach((poke) => {
             const card = document.createElement("div");
             card.className =
-              "bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden flex flex-col";
+              "bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden flex flex-col items-center p-4";
             card.innerHTML = `
-              <img src="${place.urls.regular}" alt="${
-              place.alt_description || "Place"
-            }" class="h-48 w-full object-cover">
-              <div class="p-4 flex-1 flex flex-col justify-between">
-                <h3 class="text-lg font-semibold mb-2">${
-                  place.alt_description || "Beautiful Place"
-                }</h3>
-                <a href="${
-                  place.links.html
-                }" target="_blank" class="text-blue-600 hover:underline mt-auto flex items-center"><i class="fas fa-external-link-alt mr-1"></i>View on Unsplash</a>
-              </div>
+              <img src="${poke.image}" alt="${poke.name}" class="h-32 w-32 object-contain mb-4">
+              <h3 class="text-lg font-semibold mb-2 capitalize">${poke.name}</h3>
             `;
             gallery.appendChild(card);
           });
         } catch (err) {
           gallery.innerHTML =
-            '<p class="text-red-500">Failed to load places. Please try again later.</p>';
+            '<p class="text-red-500">Failed to load Pokémon. Please try again later.</p>';
         }
       }
 
       fetchPlaces();
-    </script>
-
-    <script>
-      async function hii() {
-        const url =
-          "https://tourist-destinations-api.p.rapidapi.com/destinations?search=H%E1%BA%A1%20Long";
-        const options = {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key":
-              "788e132a90msh16f3f0efe479297p107deejsna69d82f94b34",
-            "x-rapidapi-host": "tourist-destinations-api.p.rapidapi.com",
-          },
-        };
-
-        try {
-          const response = await fetch(url, options);
-          const result = await response.text();
-          console.log(result);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-
-      hii();
     </script>
   </body>
 </html>
