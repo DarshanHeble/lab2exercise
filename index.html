@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body class="bg-gray-50">
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-20 bg-[#ffffffd4]">
+      <nav class="shadow-md">
+        <div class="max-w-7xl mx-auto px-4">
+          <div class="flex justify-between h-16">
+            <div class="flex items-center">
+              <span class="text-xl font-bold text-blue-600"
+                >Travel Explorer</span
+              >
+            </div>
+            <div class="hidden md:flex space-x-8 items-center">
+              <a
+                href="#home"
+                class="flex items-center text-gray-700 hover:text-blue-600"
+                ><i class="fas fa-home mr-2"></i>Home</a
+              >
+              <a
+                href="#places"
+                class="flex items-center text-gray-700 hover:text-blue-600"
+                ><i class="fas fa-map-marker-alt mr-2"></i>Places</a
+              >
+              <a
+                href="#gallery"
+                class="flex items-center text-gray-700 hover:text-blue-600"
+                ><i class="fas fa-images mr-2"></i>Gallery</a
+              >
+              <a
+                href="#contact"
+                class="flex items-center text-gray-700 hover:text-blue-600"
+                ><i class="fas fa-envelope mr-2"></i>Contact</a
+              >
+            </div>
+            <!-- Hamburger -->
+            <div class="md:hidden flex items-center">
+              <button
+                id="menu-btn"
+                class="text-2xl text-gray-700 focus:outline-none"
+              >
+                <i class="fas fa-bars"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+          <a href="#home" class="block py-2 text-gray-700 hover:text-blue-600"
+            ><i class="fas fa-home mr-2"></i>Home</a
+          >
+          <a href="#places" class="block py-2 text-gray-700 hover:text-blue-600"
+            ><i class="fas fa-map-marker-alt mr-2"></i>Places</a
+          >
+          <a
+            href="#gallery"
+            class="block py-2 text-gray-700 hover:text-blue-600"
+            ><i class="fas fa-images mr-2"></i>Gallery</a
+          >
+          <a
+            href="#contact"
+            class="block py-2 text-gray-700 hover:text-blue-600"
+            ><i class="fas fa-envelope mr-2"></i>Contact</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section
+      id="home"
+      class="relative h-[92vh] flex items-center justify-center bg-cover bg-center"
+      style="
+        background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80');
+      "
+    >
+      <div class="p-8 rounded-lg text-center backdrop-blur-[10px]">
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
+          Discover Amazing Places
+        </h1>
+        <p class="text-lg md:text-2xl text-gray-200 mb-6">
+          Your journey to breathtaking destinations starts here.
+        </p>
+        <a
+          href="#places"
+          class="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded shadow hover:bg-blue-700 transition"
+          >Explore Now</a
+        >
+      </div>
+    </section>
+
+    <!-- Video with Subtitles -->
+    <section id="gallery" class="max-w-4xl mx-auto my-12 px-4">
+      <h2 class="text-2xl font-bold mb-4 flex items-center">
+        <i class="fas fa-video mr-2 text-blue-600"></i>Promotional Video
+      </h2>
+      <video controls class="w-full rounded shadow-lg">
+        <source
+          src="https://videos.pexels.com/video-files/3135808/3135808-hd_1920_1080_24fps.mp4"
+          type="video/mp4"
+        />
+        <!-- <track
+          src="assets/subtitles.vtt"
+          kind="subtitles"
+          srclang="en"
+          label="English"
+        /> -->
+        Your browser does not support the video tag.
+      </video>
+    </section>
+
+    <!-- Dynamic Places Gallery -->
+    <section id="places" class="max-w-7xl mx-auto my-12 px-4">
+      <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <i class="fas fa-map-marked-alt mr-2 text-blue-600"></i>Popular Places
+      </h2>
+      <div
+        id="places-gallery"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+      ></div>
+    </section>
+
+    <!-- Audio Element -->
+    <section class="max-w-4xl mx-auto my-12 px-4">
+      <h2 class="text-2xl font-bold mb-4 flex items-center">
+        <i class="fas fa-music mr-2 text-green-600"></i>Relaxing Instrumental
+      </h2>
+      <audio controls class="w-full">
+        <source
+          src="https://audio-previews.elements.envatousercontent.com/files/259950523/preview.mp3?response-content-disposition=attachment%3B+filename%3D%22JF74GLD-future-bass-travel-vlog.mp3%22"
+          type="audio/mpeg"
+        />
+        Your browser does not support the audio element.
+      </audio>
+    </section>
+
+    <!-- Footer with SVG Graphic -->
+    <footer class="bg-gray-800 text-gray-200 py-8 mt-12">
+      <div
+        class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between px-4"
+      >
+        <div class="flex items-center mb-4 md:mb-0">
+          <span class="mr-2">&copy; 2025 Travel Explorer</span>
+          <!-- Custom SVG Location Pin -->
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 2C7.58 2 4 5.58 4 10c0 5.25 7.25 12 7.25 12s7.25-6.75 7.25-12c0-4.42-3.58-8-8-8zm0 10.5A2.5 2.5 0 1 1 12 7.5a2.5 2.5 0 0 1 0 5z"
+              fill="#3B82F6"
+            />
+          </svg>
+        </div>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-blue-400"
+            ><i class="fab fa-facebook fa-lg"></i
+          ></a>
+          <a href="#" class="hover:text-blue-400"
+            ><i class="fab fa-instagram fa-lg"></i
+          ></a>
+          <a href="#" class="hover:text-blue-400"
+            ><i class="fab fa-twitter fa-lg"></i
+          ></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Hamburger Menu Script -->
+    <script>
+      const menuBtn = document.getElementById("menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+      // Fetch places data from Unsplash API and display in gallery
+      async function fetchPlaces() {
+        const gallery = document.getElementById("places-gallery");
+        // Unsplash API for demo (no key required for random images)
+        const url =
+          "https://api.unsplash.com/search/photos?query=travel&per_page=6&client_id=1a1c1b1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e";
+        try {
+          const res = await fetch(url);
+          const data = await res.json();
+          gallery.innerHTML = "";
+          data.results.forEach((place) => {
+            const card = document.createElement("div");
+            card.className =
+              "bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden flex flex-col";
+            card.innerHTML = `
+              <img src="${place.urls.regular}" alt="${
+              place.alt_description || "Place"
+            }" class="h-48 w-full object-cover">
+              <div class="p-4 flex-1 flex flex-col justify-between">
+                <h3 class="text-lg font-semibold mb-2">${
+                  place.alt_description || "Beautiful Place"
+                }</h3>
+                <a href="${
+                  place.links.html
+                }" target="_blank" class="text-blue-600 hover:underline mt-auto flex items-center"><i class="fas fa-external-link-alt mr-1"></i>View on Unsplash</a>
+              </div>
+            `;
+            gallery.appendChild(card);
+          });
+        } catch (err) {
+          gallery.innerHTML =
+            '<p class="text-red-500">Failed to load places. Please try again later.</p>';
+        }
+      }
+
+      fetchPlaces();
+    </script>
+
+    <script>
+      async function hii() {
+        const url =
+          "https://tourist-destinations-api.p.rapidapi.com/destinations?search=H%E1%BA%A1%20Long";
+        const options = {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key":
+              "788e132a90msh16f3f0efe479297p107deejsna69d82f94b34",
+            "x-rapidapi-host": "tourist-destinations-api.p.rapidapi.com",
+          },
+        };
+
+        try {
+          const response = await fetch(url, options);
+          const result = await response.text();
+          console.log(result);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      hii();
+    </script>
+  </body>
+</html>
