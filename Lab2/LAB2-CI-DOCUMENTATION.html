@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab 2 - Basic CI Workflow Using GitHub Actions</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.45; margin: 40px; color: #222; }
+    h1 { color: #17365d; text-align: center; }
+    h2 { color: #1f4e79; border-bottom: 1px solid #9fbad0; padding-bottom: 4px; }
+    h3 { color: #365f91; }
+    code, pre { font-family: "Courier New", monospace; }
+    pre { background: #f3f5f7; border: 1px solid #d6dbe0; padding: 12px; white-space: pre-wrap; }
+    .subtitle { text-align: center; font-size: 18px; font-weight: bold; }
+    .note { background: #eef5fb; border-left: 4px solid #1f4e79; padding: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Lab 2: Basic Continuous Integration Using GitHub Actions</h1>
+  <p class="subtitle">Design and implement a basic CI workflow triggered by commits using GitHub Actions</p>
+
+  <h2>1. Objective</h2>
+  <p>
+    The objective of this lab is to design and implement a Continuous Integration (CI)
+    workflow for a web application. The workflow is triggered when changes are pushed
+    to the repository. It automatically installs dependencies, tests the backend,
+    checks the frontend code, and builds the frontend application.
+  </p>
+  <p>This helps detect errors early and ensures that new commits do not break the application.</p>
+
+  <h2>2. Technologies Used</h2>
+  <ul>
+    <li>GitHub Actions</li>
+    <li>Node.js 20 and npm</li>
+    <li>Express.js backend</li>
+    <li>React and Vite frontend</li>
+    <li>GitHub-hosted Ubuntu runner</li>
+  </ul>
+
+  <h2>3. Project Structure</h2>
+  <pre>Lab2/
+├── .github/
+│   └── workflows/
+│       └── Lab2.yaml
+├── backend/
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── server.js
+│   └── server.test.js
+├── frontend/
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── src/
+│   └── vite.config.js
+└── LAB2-CI-DOCUMENTATION.docx</pre>
+
+  <h2>4. CI Workflow Design</h2>
+  <p>The workflow is defined in <code>.github/workflows/Lab2.yaml</code>.</p>
+  <p>The workflow is triggered by:</p>
+  <ol>
+    <li>A commit pushed to the repository that changes files under <code>Lab2/</code>.</li>
+    <li>A pull request that changes files under <code>Lab2/</code>.</li>
+    <li>A manual run using the <b>Run workflow</b> button in GitHub Actions.</li>
+  </ol>
+
+  <h3>Backend job</h3>
+  <ul>
+    <li>Checks out the repository.</li>
+    <li>Sets up Node.js 20 and restores the npm cache.</li>
+    <li>Installs exact dependency versions using <code>npm ci</code>.</li>
+    <li>Runs the backend test suite using <code>npm test</code>.</li>
+  </ul>
+
+  <h3>Frontend job</h3>
+  <ul>
+    <li>Checks out the repository.</li>
+    <li>Sets up Node.js 20 and restores the npm cache.</li>
+    <li>Installs exact dependency versions using <code>npm ci</code>.</li>
+    <li>Runs frontend linting using <code>npm run lint</code>.</li>
+    <li>Creates a production build using <code>npm run build</code>.</li>
+  </ul>
+  <p class="note">If any step fails, GitHub Actions marks the corresponding job and workflow as failed.</p>
+
+  <h2>5. Workflow Implementation</h2>
+  <pre>name: Lab 2 CI
+
+on:
+  push:
+    paths:
+      - "Lab2/**"
+      - ".github/workflows/Lab2.yaml"
+  pull_request:
+    paths:
+      - "Lab2/**"
+      - ".github/workflows/Lab2.yaml"
+  workflow_dispatch:
+
+jobs:
+  backend:
+    name: Test backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Lab2/backend
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: Lab2/backend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+  frontend:
+    name: Lint and build frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Lab2/frontend
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: Lab2/frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint frontend
+        run: npm run lint
+
+      - name: Build frontend
+        run: npm run build</pre>
+
+  <h2>6. Local Verification Commands</h2>
+  <h3>Backend</h3>
+  <pre>cd Lab2/backend
+npm ci
+npm test</pre>
+  <h3>Frontend</h3>
+  <pre>cd Lab2/frontend
+npm ci
+npm run lint
+npm run build</pre>
+
+  <h2>7. Demonstration Procedure for Evaluation</h2>
+  <ol>
+    <li>Push the <code>Lab2</code> folder to a GitHub repository.</li>
+    <li>Open the repository on GitHub and select the <b>Actions</b> tab.</li>
+    <li>Select <b>Lab 2 CI</b> from the workflow list.</li>
+    <li>Make a small change inside <code>Lab2/</code>, commit it, and push it.</li>
+    <li>Open the newly created workflow run.</li>
+    <li>Show the successful <b>Test backend</b> job.</li>
+    <li>Show the successful <b>Lint and build frontend</b> job.</li>
+    <li>Expand the steps to show <code>npm test</code>, <code>npm run lint</code>, and <code>npm run build</code>.</li>
+  </ol>
+  <p>The green check marks prove that the commit passed the CI checks.</p>
+
+  <h2>8. Expected Result</h2>
+  <ul>
+    <li>GitHub Actions starts automatically after a valid commit is pushed.</li>
+    <li>The backend test passes.</li>
+    <li>The frontend lint check passes.</li>
+    <li>The frontend production build completes successfully.</li>
+    <li>The workflow is shown as successful in the GitHub Actions tab.</li>
+  </ul>
+  <p>
+    If a test, lint check, dependency installation, or build fails, GitHub Actions
+    marks the workflow as failed and displays the failed step for troubleshooting.
+  </p>
+
+  <h2>9. Conclusion</h2>
+  <p>
+    A basic commit-triggered CI pipeline was designed and implemented using GitHub
+    Actions. The pipeline validates both major parts of the application by testing
+    the backend and linting/building the frontend. This provides immediate feedback
+    on every relevant commit and improves the reliability of the development process.
+  </p>
+</body>
+</html>
