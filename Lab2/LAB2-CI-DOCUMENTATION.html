@@ -159,16 +159,30 @@ npm run build</pre>
 
   <h2>7. Demonstration Procedure for Evaluation</h2>
   <ol>
-    <li>Push the <code>Lab2</code> folder to a GitHub repository.</li>
+    <li>Open the GitHub repository:
+      <a href="https://github.com/DarshanHeble/lab2exercise/tree/main/Lab2">
+        https://github.com/DarshanHeble/lab2exercise/tree/main/Lab2
+      </a>
+    </li>
+    <li>Open the workflow file:
+      <a href="https://github.com/DarshanHeble/lab2exercise/blob/main/.github/workflows/lab2-ci.yml">
+        .github/workflows/lab2-ci.yml
+      </a>
+    </li>
     <li>Open the repository on GitHub and select the <b>Actions</b> tab.</li>
     <li>Select <b>Lab 2 CI</b> from the workflow list.</li>
-    <li>Make a small change inside <code>Lab2/</code>, commit it, and push it.</li>
-    <li>Open the newly created workflow run.</li>
+    <li>Open the successful workflow run:
+      <a href="https://github.com/DarshanHeble/lab2exercise/actions/runs/37100764609">
+        GitHub Actions run 37100764609
+      </a>
+    </li>
     <li>Show the successful <b>Test backend</b> job.</li>
     <li>Show the successful <b>Lint and build frontend</b> job.</li>
     <li>Expand the steps to show <code>npm test</code>, <code>npm run lint</code>, and <code>npm run build</code>.</li>
   </ol>
-  <p>The green check marks prove that the commit passed the CI checks.</p>
+  <p>The green check marks prove that commit <code>96a6db7</code> passed the CI checks.</p>
+  <p>For evaluation, capture three screenshots: the successful workflow overview,
+    the passed backend test, and the passed frontend lint and build steps.</p>
 
   <h2>8. Expected Result</h2>
   <ul>

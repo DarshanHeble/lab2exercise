@@ -170,17 +170,20 @@ npm run build
 
 ## 8. How to Demonstrate the CI Workflow
 
-1. Push the `Lab2` folder to a GitHub repository.
-2. Open the repository on GitHub.
+1. Open the GitHub repository: <https://github.com/DarshanHeble/lab2exercise/tree/main/Lab2>
+2. Open the workflow file: <https://github.com/DarshanHeble/lab2exercise/blob/main/.github/workflows/lab2-ci.yml>
 3. Select the **Actions** tab.
 4. Select **Lab 2 CI** from the workflow list.
-5. Make a small change inside `Lab2/`, commit it, and push it.
-6. Open the newly created workflow run.
-7. Show the successful **Test backend** job.
-8. Show the successful **Lint and build frontend** job.
-9. Expand the steps to show `npm test`, `npm run lint`, and `npm run build`.
+5. Open the successful workflow run:
+   <https://github.com/DarshanHeble/lab2exercise/actions/runs/37100764609>
+6. Show the successful **Test backend** job.
+7. Show the successful **Lint and build frontend** job.
+8. Expand the steps to show `npm test`, `npm run lint`, and `npm run build`.
 
-The green check marks prove that the commit passed the CI checks.
+The green check marks prove that commit `96a6db7` passed the CI checks.
+
+For evaluation, capture three screenshots: the successful workflow overview,
+the passed backend test, and the passed frontend lint and build steps.
 
 ## 9. Expected Result
 
